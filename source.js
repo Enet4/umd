@@ -9,7 +9,11 @@ function template(moduleName, options) {
   } else if (!options) {
     options = {};
   }
+  var amdExternal = options.amdExternal
+    ? '"'+moduleName+'"'
+    : 'undefined';
   var str = templateSTR.replace(/defineNamespace\(\)/g, compileNamespace(moduleName))
+    .replace(/amdExternalName\(\)/, amdExternal)
     .split('source()')
   str[0] = str[0].trim();
   //make sure these are undefined so as to not get confused if modules have inner UMD systems
